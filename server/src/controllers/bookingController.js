@@ -10,12 +10,12 @@ const bookingSchema = Joi.object({
   bookedBy: Joi.forbidden()
 });
 
-// Two ranges [aStart, aEnd) and [bStart, bEnd) overlap iff aStart < bEnd && bStart < aEnd.
+// Both start and end days are reserved, so matching boundary dates conflict too.
 async function hasConflict(roomNumber, startDate, endDate, excludeId) {
   const filter = {
     roomNumber,
-    startDate: { $lt: endDate },
-    endDate: { $gt: startDate }
+    startDate: { $lte: endDate },
+    endDate: { $gte: startDate }
   };
   if (excludeId) filter._id = { $ne: excludeId };
   const conflict = await Booking.findOne(filter);

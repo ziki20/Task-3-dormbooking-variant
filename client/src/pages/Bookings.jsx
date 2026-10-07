@@ -47,7 +47,7 @@ export default function Bookings() {
                 </div>
                 {isMine && (
                   <div className="flex gap-2">
-                    <Link to={`/bookings/${b._id}`} className="btn text-sm">Edit</Link>
+                    <Link to={`/bookings/${b._id}`} state={{ booking: b }} className="btn text-sm">Edit</Link>
                     <button onClick={() => onCancel(b._id)} className="btn text-sm">Cancel</button>
                   </div>
                 )}
